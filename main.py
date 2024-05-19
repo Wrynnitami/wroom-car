@@ -133,13 +133,14 @@ try:
                 print("you can add a several attributes \nlike a : color of car, volume of tank, current amount of "
                       "fuel and fuel consumption")
 
-            custom_car = int(input("for indicate the color of the car press - 1 \n""for indicate the volume of tank"
-                                   " press - 2\n""for indicate a current amount of fuel press - 3 \n""for indicate the "
-                                   "consumption of fuel press - 4 \n"":"))
+            while True:
+                custom_car = int(input("for indicate the color of the car press - 1 \n""for indicate the volume of tank"
+                                       " press - 2\n""for indicate a current amount of fuel press - 3 \n""for "
+                                       "indicate the consumption of fuel press - 4 \n"":"))
 
-            if custom_car == 1:
-                car_color = (input("insert color for created car : "))
-                Cars[-1].set_color(car_color)
+                if custom_car == 1:
+                    car_color = (input("insert color for created car : "))
+                    Cars[-1].set_color(car_color)
                     # custom_continue = input("if you want to continue, please press 1\nif you want to stop press 2:\n")
 
                     # if custom_continue == 1:
@@ -148,20 +149,31 @@ try:
                     # if custom_continue == 2:
                     #     break
 
-            if custom_car == 2:
-                gt = (input("insert the volume of tank for created car : "))
-                Cars[-1].set_gas_tank(gt)
+                elif custom_car == 2:
+                    gt = (input("insert the volume of tank for created car : "))
+                    Cars[-1].set_gas_tank(gt)
 
-            if custom_car == 3:
-                cur_fuel = (input("insert the current amount of fuel for created car : "))
-                Cars[-1].set_fuel(cur_fuel)
+                elif custom_car == 3:
+                    cur_fuel = (input("insert the current amount of fuel for created car : "))
+                    Cars[-1].set_fuel(cur_fuel)
 
-            if custom_car == 4:
-                cons = (input("insert the consumption of fuel for created car : "))
-                Cars[-1].set_consumption(cons)
+                elif custom_car == 4:
+                    cons = (input("insert the consumption of fuel for created car : "))
+                    Cars[-1].set_consumption(cons)
 
-                # if custom_continue == 1:
-                #     input(custom_car)
+                else:
+                    print("Invalid option. Please try again.")
+                    # if custom_continue == 1:
+                    #     input(custom_car)
+
+                custom_continue = int(input("if you want to continue configurate the car, please press 1\n"
+                                            "if you want to stop and apply configure of the car, please press 2\n:"))
+
+                if custom_continue == 1:
+                    continue
+
+                elif custom_continue == 2:
+                    break
 
         if to_cars == 2:
             if not Cars:
@@ -177,21 +189,35 @@ try:
 
             print(f"you are chose {Cars[selected_car].get_make()}, how do you want to interact?")
 
-            options = int(input(f"available function is : \n1 - to print color of car \n""2 - to print volume of tank "
-                                "\n""3 - to print of current fuel \n""4 - to print consumption of fuel \n: "))
+            while True:
+                options = int(input(f"available function is : \n1 - to print color of car \n""2 - to print volume of "
+                                    "tank""'\n""3 - to print of current fuel \n""4 - to print consumption of fuel \n: "))
 
-            if options == 1:
-                print(f"color of selected car is {Cars[i].get_сolor()}\n")
+                if options == 1:
+                    print(f"color of selected car is {Cars[i].get_сolor()}\n")
 
-            if options == 2:
-                print(f"tank volume of selected car is {Cars[i].get_gas_tank()} gallons\n")
+                elif options == 2:
+                    print(f"tank volume of selected car is {Cars[i].get_gas_tank()} gallons\n")
 
-            if options == 3:
-                print(f"current fuel of selected car is {Cars[i].get_fuel()} gallons\n")
+                elif options == 3:
+                    print(f"current fuel of selected car is {Cars[i].get_fuel()} gallons\n")
 
-            if options == 4:
-                print(f"consumption of fuel of selected car is {Cars[i].get_consumption()}\n")
+                elif options == 4:
+                    print(f"consumption of fuel of selected car is {Cars[i].get_consumption()}\n")
 
+                else:
+                    print("ti eblan")
+
+                info_continue = int(input("if you want to see another attributes of the car , please press 1\n"
+                                          "if you want to quit, please press 2\n:"))
+                if info_continue == 1:
+                    continue
+
+                elif info_continue == 2:
+                    break
+
+                else:
+                    print("(￢‿￢ )")
         # else:
         #     break - на будущее, для выхода из цикла
 
