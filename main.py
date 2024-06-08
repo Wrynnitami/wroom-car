@@ -14,7 +14,18 @@
 # нужжно прописать параметр делающий все элементы написанными с заглавной буквы
 # -----------------
 
+# file = open('wroom_wroom_car.py', 'a+')
+# file.read()
+# file.write()
+# file.close()
+# encoding="utf8"
+
+# после выбора машины предлагать не только узнать характеристики, но так же взаимодействовать с функциями машины.
+
 Cars = []
+
+with open('wroom_wroom_car.py', 'a+', encoding='utf8') as file:
+    file.read()
 
 
 class Car:
@@ -32,18 +43,29 @@ class Car:
     def fill_up(self):
 
         try:
-            filled_gas = int(input("if you want fill up the tank to full, please press 1 \n""if you want fill up the "
-                                   "tank to certain amount, please press 2 \n------------------->"))
+            while True:
+                filled_gas = int(
+                    input("if you want fill up the tank to full, please press 1 \n""if you want fill up the "
+                          "tank to certain amount, please press 2 \n------------------->"))
 
-            if filled_gas == 1:
-                self.current_fuel = 50
-                print("the tank is full")
-                print("че там с деньгами?")
+                if filled_gas == 1:
+                    self.current_fuel = 50
+                    print(f"the tank is full of {self.current_fuel} / {self.gas_tank}")
+                    print("че там с деньгами?")
+                    break
 
-            else:
-                filled_gas = int(input("how much fuel do you want to fill :"))
-                self.current_fuel += filled_gas
-                print(f"the tank is full of {self.current_fuel} of 50 gallons")
+                else:
+                    filled_gas = int(input("how much fuel do you want to fill: "))
+
+                    if filled_gas + self.current_fuel > self.gas_tank:
+                        print(f"the tank is already full of {self.current_fuel} / {self.gas_tank}. "
+                              "It's too much of fuel, pick up different amount")
+                        break
+
+                    else:
+                        self.current_fuel += filled_gas
+                        print(f"the tank is full of {self.current_fuel} / {self.gas_tank}")
+                        break
 
         except ValueError:
             print("try again, asshole")
@@ -60,7 +82,7 @@ class Car:
     def color(self):
         print(f"the color of car is {self.color}")
 
-    def get_сolor(self):
+    def get_color(self):
         return self.color
 
     def set_color(self, color):
@@ -86,7 +108,7 @@ class Car:
         self.gas_tank = gas_tank
 
     def consumption(self):
-        print(f"current consumption of fuel is {self.consumption}")
+        print(int(f"current consumption of fuel is {self.consumption}"))
 
     def get_consumption(self):
         return self.consumption
@@ -119,24 +141,27 @@ try:
                             "choose existing, type 2 \n""type here: "))
 
         if to_cars == 1:
+            # как можно создать параметр который в одной строке будет указывать и марку и модель, а не как щас только
+            # марку, по факту параметр model - пустым
             makeAndModel = input("Enter make and model of car : ")
 
             create_car = int(input("0 - default car, 1 - custom car : "))
 
             if create_car == 0:
                 Cars.append(Car(makeAndModel))
+                # file.write(str(Cars[-1]))
                 continue
 
             if create_car == 1:
                 Cars.append(Car(makeAndModel))
-
-                print("you can add a several attributes \nlike a : color of car, volume of tank, current amount of "
+                print("you can add a several attributes, like a : color of car, volume of tank, current amount of "
                       "fuel and fuel consumption")
 
             while True:
-                custom_car = int(input("for indicate the color of the car press - 1 \n""for indicate the volume of tank"
-                                       " press - 2\n""for indicate a current amount of fuel press - 3 \n""for "
-                                       "indicate the consumption of fuel press - 4 \n"":"))
+                custom_car = int(
+                    input("for indicate the color of the car press - 1 \n""for indicate the volume of tank"
+                          " press - 2\n""for indicate a current amount of fuel press - 3 \n""for "
+                          "indicate the consumption of fuel press - 4 \n"":"))
 
                 if custom_car == 1:
                     car_color = (input("insert color for created car : "))
@@ -173,11 +198,12 @@ try:
                     continue
 
                 elif custom_continue == 2:
+                    # file.write(str(Cars[-1]))
                     break
 
         if to_cars == 2:
             if not Cars:
-                print("There is not cars what a you looking for")
+                print("\nThere is not cars what a you looking for")
 
                 continue
             print("All cars:")
@@ -189,40 +215,75 @@ try:
 
             print(f"you are chose {Cars[selected_car].get_make()}, how do you want to interact?")
 
+
+            def configue():
+                while True:
+                    options = int(
+                        input(f"available function is : \n1 - to print color of car \n""2 - to print volume of "
+                              "tank""\n""3 - to print of current fuel \n""4 - to print consumption of fuel"
+                              "\n""5 - to see next page\n:"))
+
+                    if options == 1:
+                        print(f"color of selected car is {Cars[i].get_color()}\n")
+
+                    elif options == 2:
+                        print(f"tank volume of selected car is {Cars[i].get_gas_tank()} gallons\n")
+
+                    elif options == 3:
+                        print(f"current fuel of selected car is {Cars[i].get_fuel()} gallons\n")
+
+                    elif options == 4:
+                        print(f"consumption of fuel of selected car is {Cars[i].get_consumption()}\n")
+
+                    elif options == 5:
+                        break
+
+                    else:
+                        print("ti eblan")
+
+
+            configue()
+
             while True:
-                options = int(input(f"available function is : \n1 - to print color of car \n""2 - to print volume of "
-                                    "tank""'\n""3 - to print of current fuel \n""4 - to print consumption of fuel \n: "))
+                info_continue = int(input("\nif you want to see previous page please "
+                                          "press 1\n""if you want to do wroom-wroom or whatever, please press 2\n"
+                                          "if you want to quit, please press 3\n:"))
 
-                if options == 1:
-                    print(f"color of selected car is {Cars[i].get_сolor()}\n")
-
-                elif options == 2:
-                    print(f"tank volume of selected car is {Cars[i].get_gas_tank()} gallons\n")
-
-                elif options == 3:
-                    print(f"current fuel of selected car is {Cars[i].get_fuel()} gallons\n")
-
-                elif options == 4:
-                    print(f"consumption of fuel of selected car is {Cars[i].get_consumption()}\n")
-
-                else:
-                    print("ti eblan")
-
-                info_continue = int(input("if you want to see another attributes of the car , please press 1\n"
-                                          "if you want to quit, please press 2\n:"))
                 if info_continue == 1:
-                    continue
+                    while True:
+                        configue()
+                        break
 
                 elif info_continue == 2:
+                    move_or_fill = int(
+                        input(f"press number from the list for do something, list ↓↓↓ :\n""1 - to do "
+                              "wroom-wroom\n""2 - "
+                              "to fill up car\n""3 - to get out and go home\n:"""))
+                    if move_or_fill == 1:
+                        Cars[selected_car].move()
+
+                    elif move_or_fill == 2:
+                        Cars[selected_car].fill_up()
+
+                    elif move_or_fill == 3:
+                        break
+
+                    else:
+                        print("bruh")
+
+                elif info_continue == 3:
                     break
 
                 else:
                     print("(￢‿￢ )")
+
         # else:
         #     break - на будущее, для выхода из цикла
 
 
 except ValueError:
     print("screw you guys, i'm going home")
+
+    file.close()
 
 # Prius = Car("Toyota", "Prius","gray", 50,0,1)
